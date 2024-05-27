@@ -5,7 +5,9 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import path from "path";
 import http from "http";
+import mongoose from "mongoose";
 import { Server } from "socket.io";
+
 import connectToMongodb from "./db/mongodb";
 import { authEndUserMiddleware, authSenderMiddleware } from "./middleware/auth";
 import endUserRouter from "./routers/end";
@@ -36,6 +38,20 @@ app.use(
   process.env.NODE_ENV === "production" ? "/city-park-lot/api" : "/",
   mainRouter
 );
+
+app.get("/city-park-lot/api/end-user/getPassDataCount", async (req, res) => {
+  console.log("getPassDataCount");
+  try {
+    const database = await mongoose.connect(process.env.MONGO_URI || "");
+    const myCollection = mongoose.model("Data");
+    const documentCount = await myCollection.countDocuments({});
+    console.log(documentCount);
+    res.json(documentCount);
+  } catch (error: any) {
+    console.log(`Error connecting to DB: ${error.message}`);
+    process.exit(1);
+  }
+});
 
 const server = http.createServer(app);
 
