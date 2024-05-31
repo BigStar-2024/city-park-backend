@@ -5,6 +5,7 @@ import {
 } from "../../middleware/auth";
 import superUserRouter from "./user";
 import lotRouter from "./lot";
+import payingAppRouter from "./payingApp";
 import dataRouter from "./data";
 import messageRouter from "./message";
 import unenforcableDatesRouter from "./unenforcableDates";
