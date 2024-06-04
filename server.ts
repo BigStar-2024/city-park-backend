@@ -93,6 +93,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User disconnected");
   });
+
+  socket.on("send_message", (message: string) => {
+    io.emit("receive_message", message);
+  });
 });
 
 server.listen(port, () => {
