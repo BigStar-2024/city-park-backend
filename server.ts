@@ -13,6 +13,7 @@ import { authEndUserMiddleware, authSenderMiddleware } from './middleware/auth';
 import endUserRouter from './routers/end';
 import senderRouter from './routers/sender';
 import payingAppRouter from './routers/payingapp';
+import paymentLog from './models/paymentLog'
 const mainRouter = express.Router();
 dotenv.config();
 connectToMongodb()
@@ -20,7 +21,13 @@ const app: Application = express();
 const port = process.env.PORT || 8000;
 app.use(morgan('dev'))
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+// Use CORS middleware
+app.use(cors({
+    origin: 'http://localhost:3000', // Replace with your client's origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 endUserRouter.use('/public', express.static(path.join(__dirname, process.env.NODE_ENV === "production" ? '../public' : 'public')))
@@ -30,12 +37,14 @@ mainRouter.use('/payingapp', payingAppRouter)
 app.use(process.env.NODE_ENV === "production" ? '/city-park-lot/api' : '/', mainRouter)
 
 app.get('/city-park-lot/api/end-user/getPassDataCount', async (req, res) => {
-    console.log("getPassDataCount");
+    // console.log("getPassDataCount");
     try {
-        const database = await mongoose.connect(process.env.MONGO_URI || "");
+
+        await mongoose.connect(process.env.MONGO_URI || "");
+
         const myCollection = mongoose.model('Data');
         const documentCount = await myCollection.countDocuments({});
-        console.log(documentCount);
+        console.log("getPassDataCount", documentCount);
         res.json(documentCount);        
     } catch (error: any) {
         console.log(`Error connecting to DB: ${(error).message}`);
@@ -43,9 +52,28 @@ app.get('/city-park-lot/api/end-user/getPassDataCount', async (req, res) => {
     }
 });
 
+app.get('/city-park-lot/api/end-user/getPaidData', async (req, res) => {
+    // console.log("getPassDataCount");
+    try {
+        const paidData = await paymentLog.find({});
+
+        res.json(paidData);        
+    } catch (error: any) {
+        console.log(`Error connecting to DB: ${(error).message}`);
+        process.exit(1);
+    }
+});
+
+// Create HTTP server
 const server = http.createServer(app);
 
-const io = new Server(server);
+// Configure Socket.IO server with CORS
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:3000', // Replace with your client's origin
+    methods: ['GET', 'POST']
+  }
+});
 
 io.on('connection', (socket) => {
     console.log('A user connected');
