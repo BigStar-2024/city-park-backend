@@ -21,10 +21,10 @@ const app: Application = express();
 const port = process.env.PORT || 8000;
 app.use(morgan('dev'))
 app.use(express.json());
-// app.use(cors());
-// Use CORS middleware
-app.use(cors({
-    origin: 'http://localhost:3000', // Replace with your client's origin
+app.use(cors());
+// Use CORS middleware 
+  app.use(cors({
+    origin: ['http://localhost:3000', 'https://car-park-payingapp-front.vercel.app/'],// Replace with your client's origin
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
