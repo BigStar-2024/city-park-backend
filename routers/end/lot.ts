@@ -1,10 +1,8 @@
-
 import express from "express";
 import multer from "multer";
 import { CustomUserRequest, FilesObject, JWT_SIGN_KEY } from "../../types";
 import lotModel from "../../models/lot";
 import jwt from 'jsonwebtoken'
-
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
