@@ -58,6 +58,19 @@ lotRouter
     })
 
 lotRouter.route("/:_id/")
+    .put(async (req, res) => {
+        const { _id } = req.params;
+        const { owners } = req.body;
+        try {
+        await lotModel.findByIdAndUpdate(_id, { owners: owners });
+        res.status(200).json({ success: true });
+        } catch (e) {
+        res.send(500).json({
+            success: false,
+            error: "Server error",
+        });
+        }
+    })
     .delete(async (req, res) => {
         const { _id } = req.params
         try {
