@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(cors());
 // Use CORS middleware 
   app.use(cors({
-    origin: ['http://localhost:3000', 'https://car-park-payingapp-front.vercel.app/'],// Replace with your client's origin
+    origin: ['http://localhost:3000', 'https://car-park-payingapp-front.vercel.app/', 'https://park-charge-management-front.vercel.app/'],// Replace with your client's origin
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
