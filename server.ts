@@ -71,7 +71,8 @@ app.get('/city-park-lot/api/end-user/getPaidData', async (req, res) => {
 
 app.post('/city-park-lot/api/end-user/violation/list-save', async (req, res) => {
     try {
-        console.log("req :", req)
+        console.log("req :",)
+        res.status(200).send("okay");
     } catch (error: any) {
 
     }
