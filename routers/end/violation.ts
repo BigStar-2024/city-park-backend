@@ -1,18 +1,18 @@
 import express from "express";
 
 
-const violationappRouter = express.Router();
+const violationRouter = express.Router();
 
-violationappRouter
+violationRouter
     .route('/violation-list')
     .get(async(res, req) => {
 
     })
 
-violationappRouter
+    violationRouter
     .route('/list-save')
     .post(async(res, req) => {
-        console.log("violtion list request: ", req);
+        console.log("violtion list request: ");
     })
 
-export default violationappRouter;
+export default violationRouter;
