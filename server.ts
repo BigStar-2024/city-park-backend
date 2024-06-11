@@ -69,6 +69,13 @@ app.get('/city-park-lot/api/end-user/getPaidData', async (req, res) => {
     }
 });
 
+app.post('/city-park-lot/api/end-user/violation/list-save', async (req, res) => {
+    try {
+        console.log("req :", req)
+    } catch (error: any) {
+
+    }
+})
 // Create HTTP server
 const server = http.createServer(app);
 

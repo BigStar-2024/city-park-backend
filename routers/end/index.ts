@@ -12,5 +12,5 @@ endUserRouter.use('/lot', authReadOnlyMiddleware, lotRouter)
 endUserRouter.use("/message", messageRouter);
 endUserRouter.use('/unenforcable-dates', authReadOnlyMiddleware, unenforcableDatesRouter)
 endUserRouter.use('/data', dataRouter);
-endUserRouter.use('/violationapp', violationRouter)
+// endUserRouter.use('/violationapp', violationRouter)
 export default endUserRouter
