@@ -69,14 +69,16 @@ app.get('/city-park-lot/api/end-user/getPaidData', async (req, res) => {
     }
 });
 
-app.post('/city-park-lot/api/end-user/violation/list-save', async (req, res) => {
+app.post('/city-park-lot/api/violation/list-save', async (req, res) => {
+    // console.log("getPassDataCount");
     try {
-        console.log("req :",)
-        res.status(200).send("okay");
+        console.log("volation😂")     
     } catch (error: any) {
-
+        console.log(`Error😢`);
     }
-})
+});
+
+
 // Create HTTP server
 const server = http.createServer(app);
 
