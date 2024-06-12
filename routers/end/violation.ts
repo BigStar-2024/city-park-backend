@@ -12,7 +12,7 @@ violationappRouter
 violationappRouter
     .route('/list-save')
     .post(async(res, req) => {
-        console.log("violtion list request: ", req);
+        console.log("violtion list request: ");
     })
 
 export default violationappRouter;
