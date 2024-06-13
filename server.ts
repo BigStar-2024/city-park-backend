@@ -14,6 +14,7 @@ import endUserRouter from './routers/end';
 import senderRouter from './routers/sender';
 import payingAppRouter from './routers/payingapp';
 import paymentLog from './models/paymentLog';
+
 dotenv.config();
 connectToMongodb()
 
@@ -37,6 +38,8 @@ const mainRouter = express.Router();
 mainRouter.use('/end-user', authEndUserMiddleware, endUserRouter)
 mainRouter.use('/sender', authSenderMiddleware, senderRouter)
 mainRouter.use('/payingapp', payingAppRouter)
+// mainRouter.use('/violation', payingAppRouter)
+
 app.use(process.env.NODE_ENV === "production" ? '/city-park-lot/api' : '/', mainRouter)
 
 app.get('/city-park-lot/api/end-user/getPassDataCount', async (req, res) => {
@@ -69,14 +72,14 @@ app.get('/city-park-lot/api/end-user/getPaidData', async (req, res) => {
     }
 });
 
-app.post('/city-park-lot/api/violation/list-save', async (req, res) => {
-    // console.log("getPassDataCount");
-    try {
-        console.log("volation😂")     
-    } catch (error: any) {
-        console.log(`Error😢`);
-    }
-});
+// app.post('/city-park-lot/api/violation/list-save', async (req, res) => {
+//     // console.log("getPassDataCount");
+//     try {
+//         console.log("volation😂", req.body)     
+//     } catch (error: any) {
+//         console.log(`Error😢`);
+//     }
+// });
 
 
 // Create HTTP server
