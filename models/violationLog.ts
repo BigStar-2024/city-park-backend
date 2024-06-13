@@ -4,7 +4,7 @@ const violationSchema = new mongoose.Schema({
     _id: {
         type: String
     },
-    log: {
+    lot: {
         type: String
     },
     camera: {

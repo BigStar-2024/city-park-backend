@@ -13,6 +13,7 @@ import { authEndUserMiddleware, authSenderMiddleware } from './middleware/auth';
 import endUserRouter from './routers/end';
 import senderRouter from './routers/sender';
 import payingAppRouter from './routers/payingapp';
+import violationAppRouter from './routers/violationapp';
 import paymentLog from './models/paymentLog';
 
 dotenv.config();
@@ -38,7 +39,7 @@ const mainRouter = express.Router();
 mainRouter.use('/end-user', authEndUserMiddleware, endUserRouter)
 mainRouter.use('/sender', authSenderMiddleware, senderRouter)
 mainRouter.use('/payingapp', payingAppRouter)
-// mainRouter.use('/violation', payingAppRouter)
+mainRouter.use('/violationapp', violationAppRouter)
 
 app.use(process.env.NODE_ENV === "production" ? '/city-park-lot/api' : '/', mainRouter)
 
