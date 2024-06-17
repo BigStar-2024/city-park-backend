@@ -4,6 +4,7 @@ import violationListModel from "../../models/violationLog";
 const violationAppRouter = express.Router();
 
 interface Violation {
+    _id: string;
     lot: string;
     plateNumber: string;
     entryTime: string; 
@@ -22,12 +23,15 @@ violationAppRouter
             // If we retrieved a list, proceed to map it to another array
             if(violationList.length > 0) {
                 const resultArr = violationList.map((obj) => ({
+                    parkingChargeNumber: obj._id,
                     lot: obj.lot,
                     plateNumber: obj.plateNumber,
                     // Calculate the parking fee based on entry and exit times
-                    fee: (Math.abs(new Date(obj.exitTime).getTime() - new Date(obj.entryTime).getTime()) / 36e5 * parkingPricePerLot).toFixed(2), // Fix the typo here as well
+                    fee: parseFloat((Math.abs(new Date(obj.exitTime).getTime() - new Date(obj.entryTime).getTime()) / 36e5 * parkingPricePerLot).toFixed(2)), // Fix the typo here as well
+                    delay_fee:55,
+                    issue_date: obj.entryTime
+                    // fee: , // Fix the typo here as well
                 }));
-
                 // Send success response with the result array
                 res.status(200).json(resultArr);
             } else {

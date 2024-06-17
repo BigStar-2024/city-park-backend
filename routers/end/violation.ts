@@ -7,7 +7,6 @@ violationRouter
     .post(async (req, res) => {
         try {
             const violationList = req.body.violationArr;
-
             for (const element of violationList) {
                 const bulkOps = {
                     updateOne: {
@@ -16,8 +15,7 @@ violationRouter
                         upsert: true
                     }
                 }
-
-                await violationListModel.bulkWrite([bulkOps]);
+            await violationListModel.bulkWrite([bulkOps]);
             }
             res.status(200).send("sucessfully saved")
         } catch (error: any) {
