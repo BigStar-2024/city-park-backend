@@ -9,6 +9,8 @@ interface Violation {
     plateNumber: string;
     entryTime: string; 
     exitTime: string; 
+    vehicle1: string;
+    vehicle2: string;
 }
 
 const parkingPricePerLot = 10;
@@ -30,7 +32,9 @@ violationAppRouter
                     // Calculate the parking fee based on entry and exit times
                     fee: parseFloat((Math.abs(new Date(obj.exitTime).getTime() - new Date(obj.entryTime).getTime()) / 36e5 * parkingPricePerLot).toFixed(2)), // Fix the typo here as well
                     delay_fee:parseFloat((Math.abs(new Date().getTime() - new Date(obj.entryTime).getTime()) / 36e5 * delayPrice).toFixed(2)),
-                    issue_date: obj.entryTime
+                    issue_date: obj.entryTime,
+                    image1: obj.vehicle1,
+                    image2: obj.vehicle2,
                     // fee: , // Fix the typo here as well
                 }));
                 // Send success response with the result array
