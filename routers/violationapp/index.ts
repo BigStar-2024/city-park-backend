@@ -12,6 +12,7 @@ interface Violation {
 }
 
 const parkingPricePerLot = 10;
+const delayPrice = 0.1
 
 violationAppRouter
     .route("/get-list")
@@ -28,7 +29,7 @@ violationAppRouter
                     plateNumber: obj.plateNumber,
                     // Calculate the parking fee based on entry and exit times
                     fee: parseFloat((Math.abs(new Date(obj.exitTime).getTime() - new Date(obj.entryTime).getTime()) / 36e5 * parkingPricePerLot).toFixed(2)), // Fix the typo here as well
-                    delay_fee:55,
+                    delay_fee:parseFloat((Math.abs(new Date().getTime() - new Date(obj.entryTime).getTime()) / 36e5 * delayPrice).toFixed(2)),
                     issue_date: obj.entryTime
                     // fee: , // Fix the typo here as well
                 }));
